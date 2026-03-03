@@ -46,6 +46,15 @@ jobs:
       #       sudo docker rm app || true
       #       sudo docker run -d -p 3000:3000 --name app \
       #         ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+      - name: Check if key exists
+        run: |
+         if [ -z "${{ secrets.EC2_SSH_PRIVATE_KEY }}" ]; then
+         echo "KEY IS EMPTY"
+         else
+         echo "KEY IS PRESENT"
+         fi
+
+      
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.0
