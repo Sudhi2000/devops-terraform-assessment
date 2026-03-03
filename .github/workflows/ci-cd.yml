@@ -41,11 +41,18 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
+            aws ecr get-login-password --region ap-south-1 | \
+            sudo docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
+
             sudo docker pull ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+
             sudo docker stop app || true
             sudo docker rm app || true
-            sudo docker run -d -p 3000:3000 --name app \
+
+            sudo docker run -d -p 3000:3000 --restart unless-stopped --name app \
               ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+
+              
               
       # - name: Check if key exists
       #   run: |
