@@ -34,36 +34,37 @@ jobs:
         run: |
           docker push ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
 
-      # - name: Deploy to EC2
-      #   uses: appleboy/ssh-action@v1.0.0
-      #   with:
-      #     host: ${{ secrets.EC2_PUBLIC_IP }}
-      #     username: ec2-user
-      #     key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-      #     script: |
-      #       sudo docker pull ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
-      #       sudo docker stop app || true
-      #       sudo docker rm app || true
-      #       sudo docker run -d -p 3000:3000 --name app \
-      #         ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
-      - name: Check if key exists
-        run: |
-         if [ -z "${{ secrets.EC2_SSH_PRIVATE_KEY }}" ]; then
-         echo "KEY IS EMPTY"
-         else
-         echo "KEY IS PRESENT"
-         fi
-
-      
-
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_PUBLIC_IP }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          port: 22
-          script_stop: true
-          debug: true
           script: |
-            echo "SSH Connected"
+            sudo docker pull ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+            sudo docker stop app || true
+            sudo docker rm app || true
+            sudo docker run -d -p 3000:3000 --name app \
+              ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+              
+      # - name: Check if key exists
+      #   run: |
+      #    if [ -z "${{ secrets.EC2_SSH_PRIVATE_KEY }}" ]; then
+      #    echo "KEY IS EMPTY"
+      #    else
+      #    echo "KEY IS PRESENT"
+      #    fi
+
+      
+
+      # - name: Deploy to EC2
+      #   uses: appleboy/ssh-action@v1.0.0
+      #   with:
+      #     host: ${{ secrets.EC2_PUBLIC_IP }}
+      #     username: ec2-user
+      #     key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+      #     port: 22
+      #     script_stop: true
+      #     debug: true
+      #     script: |
+      #       echo "SSH Connected"
