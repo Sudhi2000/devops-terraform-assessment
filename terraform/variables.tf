@@ -32,3 +32,9 @@ variable "internet_cidr" {
   type    = string
   default = "0.0.0.0/0"
 }
+
+variable "db_password" {
+  description = "Database password stored in Secrets Manager"
+  type        = string
+  sensitive   = true
+}

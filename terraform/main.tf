@@ -1,13 +1,8 @@
-
-provider "aws" {
-  region = var.region
-}
-
 resource "aws_vpc" "main_vpc" {
   cidr_block = var.vpc_cidr
 
   tags = {
-    Name = "devops-vpc"
+    Name = "devops-vpc-${terraform.workspace}"
   }
 }
 
@@ -84,7 +79,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_iam_role" "ec2_role" {
-  name = "ec2-ecr-role"
+  name = "ec2-ecr-role-${terraform.workspace}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -103,8 +98,13 @@ resource "aws_iam_role_policy_attachment" "ecr_attach" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
+resource "aws_iam_role_policy_attachment" "secrets_access" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+}
+
 resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "ec2-instance-profile"
+  name = "ec2-instance-profile-${terraform.workspace}"
   role = aws_iam_role.ec2_role.name
 }
 
@@ -117,8 +117,8 @@ resource "aws_instance" "app_server" {
 
   user_data = <<-EOF
               #!/bin/bash
-              yum update -y
-              yum install -y docker
+              apt update -y
+              apt install -y docker
               systemctl start docker
               systemctl enable docker
               usermod -aG docker ec2-user
