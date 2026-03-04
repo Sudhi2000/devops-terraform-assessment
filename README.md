@@ -1,5 +1,5 @@
 
-<!-- DevOps Terraform Assessment – Node.js Application Deployment Overview -->
+# DevOps Terraform Assessment – Node.js Application Deployment Overview
 
 - This project demonstrates a production-style DevOps workflow for deploying a Node.js application using modern infrastructure and CI/CD practices.
 
@@ -19,39 +19,39 @@ The goal of this project is to showcase:
 
 ............................................................................
 
-<!-- Architecture Overview -->
+# Architecture Overview
+
 
 The system architecture consists of the following components:
-
-# Developer
+ Developer
    │
    ▼
-# GitHub Repository
+ GitHub Repository
    │
    ▼
-# GitHub Actions CI/CD Pipeline
+ GitHub Actions CI/CD Pipeline
    │
    ├ Build & Test
    ├ Static Code Analysis
    ├ Security Scanning
    ├ Docker Image Build
    ▼
-# Amazon Elastic Container Registry (ECR)
+ Amazon Elastic Container Registry (ECR)
    │
    ▼
-# Amazon EC2 Instance
+ Amazon EC2 Instance
    │
    ▼
-# Docker Container
+ Docker Container
    │
    ▼
-# Node.js Application
+ Node.js Application
 
  - Infrastructure is provisioned using Terraform, and the application is deployed automatically whenever code is pushed to the repository.
 
 ............................................................................................................................
 
-<!-- Project Structure -->
+# Project Structure
 
 devops-terraform-assessment
 │
@@ -84,7 +84,7 @@ devops-terraform-assessment
 
 ................................................................................................................................
 
-<!-- Infrastructure as Code (Terraform) -->
+# Infrastructure as Code (Terraform)
 
  - All cloud infrastructure is provisioned using Terraform.
 
@@ -112,8 +112,7 @@ The Terraform configuration creates:
 
 ..................................................................................................................................
 
-
-<!-- Remote State Configuration -->
+# Remote State Configuration
 
 Terraform state is stored remotely using:
 
@@ -125,7 +124,7 @@ This prevents concurrent infrastructure changes.
 
 ..................................................................................................................................
 
-<!-- Environment Separation -->
+# Environment Separation
 
 Multiple environments are supported using Terraform workspaces and variable files.
 
@@ -150,7 +149,7 @@ Example usage:
 
 .............................................................................................................................
 
-   <!-- Application Containerization -->
+#    Application Containerization
 
  - The Node.js application is containerized using Docker.
 
@@ -166,55 +165,55 @@ The container image:
 
  .........................................................................................................
 
-<!-- CI/CD Pipeline -->
+# CI/CD Pipeline
 
  - The project includes a GitHub Actions pipeline that automates the full application lifecycle.
 
 Pipeline stages include:
 
-# Source Stage
+- Source Stage
 
-> Triggered on push to the main branch.
+ Triggered on push to the main branch.
 
-# Build Stage
+- Build Stage
  
-> Install Node.js dependencies.
+ Install Node.js dependencies.
 
-# Test Stage
+- Test Stage
 
-> Run application tests.
+ Run application tests.
 
-# Static Code Analysis
+- Static Code Analysis
 
-> ESLint checks for coding issues.
+ ESLint checks for coding issues.
 
-# Security Scan
+- Security Scan
 
-> Dependency vulnerabilities detected using npm audit.
+ Dependency vulnerabilities detected using npm audit.
 
-# Container Build
+- Container Build
 
-> Docker image built from application source.
+ Docker image built from application source.
 
-# Container Security Scan
+- Container Security Scan
 
-> Image scanned using Trivy for vulnerabilities.
+ Image scanned using Trivy for vulnerabilities.
 
-# Container Registry Push
+- Container Registry Push
 
-> Image pushed to AWS ECR.
+ Image pushed to AWS ECR.
 
-# Deployment
+- Deployment
 
-> ontainer deployed automatically to the EC2 instance.
+ container deployed automatically to the EC2 instance.
 
-# Notification Stage
+- Notification Stage
 
-> Pipeline completion notification
+ Pipeline completion notification
 
 .........................................................................................................
 
-<!-- Deployment Process -->
+# Deployment Process
 
  - Deployment is performed automatically through the CI/CD pipeline.
 
@@ -235,21 +234,21 @@ Deployment steps:
                                 
 ...........................................................................................................
 
-<!-- Operational Automation Scripts -->
+# Operational Automation Scripts
 
  - Production-grade automation scripts are included in the scripts directory.
 
-# Deployment Script
+ Deployment Script
  - Automates application deployment with health validation.
    
    > ./deploy.sh <image>
 
-# Rollback Script
+ Rollback Script
  - Reverts deployment to the previous working image.
    
    > ./rollback.sh <previous_image>
 
-# Health Check Script
+ Health Check Script
  - Validates application availability and response status
   
   > ./health-check.sh
@@ -264,19 +263,19 @@ These scripts include:
 
   ...........................................................................................................
 
-<!-- DevOps and Operational Standards -->
+# DevOps and Operational Standards
 
 The project follows several DevOps best practices.
 
-# Infrastructure as Code
+ Infrastructure as Code
 
  - All infrastructure resources are defined using Terraform. No manual console configuration is required.
 
-# Immutable Artifacts
+ Immutable Artifacts
 
  - Docker images are built once and pushed to ECR. The same image is used during deployment.
 
-# Security Scanning
+ Security Scanning
 
 - Two layers of security scanning are implemented:
 
@@ -284,33 +283,33 @@ The project follows several DevOps best practices.
 
 >Container vulnerability scanning using Trivy
 
-# Fail-Fast Pipeline
+ Fail-Fast Pipeline
 
 - The CI/CD pipeline uses job dependencies to ensure failures are detected early.
 
 .......................................................................................................................
   
-<!-- Prerequisites -->
+  # Prerequisites
 
 - To run this project, the following tools are required:
 
-# AWS Account
+AWS Account
 
-# Terraform
+Terraform
 
-# Docker
+Docker
 
-# Node.js
+Node.js
 
-# Git
+Git
 
-# GitHub repositorY
+GitHub repositorY
 
 - > AWS credentials must be configured before running Terraform.
 
 ............................................................................................................
 
-<!-- Running the Project -->
+# Running the Project
 
  - Step 1 – Clone Repository
 
@@ -331,33 +330,33 @@ The project follows several DevOps best practices.
 
 The CI/CD pipeline will automatically:
 
-# build
+> build
 
-# test
+> test
 
-# scan
+> scan
 
-# containerize
+> containerize
 
 .....................................................................................................................
 
-<!-- Pipeline Demonstration -->
+# Pipeline Demonstration
  
  - A successful pipeline run demonstrates:
    
-   # build
+> build
   
-   # automated testing
+> automated testing
 
-   # security scanning
+> security scanning
 
-   # container image creation
+> container image creation
 
-   # automated deployment
+> automated deployment
 
 .........................................................................................................................
 
-<!-- Future Improvements -->
+# Future Improvements
  
   Potential improvements for a production environment include:
 
@@ -370,7 +369,7 @@ The CI/CD pipeline will automatically:
 
 .......................................................................................................................
 
-<!-- Conclusion -->
+# Conclusion
 
  - This project demonstrates a complete DevOps workflow, including infrastructure provisioning, automated CI/CD pipelines, containerized application deployment, security scanning, and operational automation.
 
